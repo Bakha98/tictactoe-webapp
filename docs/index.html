@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Крестики-Нолики • WebApp</title>
+
+  <link rel="stylesheet" href="./styles.css">
+  <link id="themeLink" rel="stylesheet" href="./theme-default.css">
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <div class="brand"><span class="logo">✖︎◯</span><span class="title">Крестики-Нолики</span></div>
+      <div class="controls">
+        <select id="mode">
+          <option value="pvp">👥 Игрок vs Игрок</option>
+          <option value="ai_easy">🤖 Лёгкий ИИ</option>
+          <option value="ai_medium">🧠 Средний ИИ</option>
+          <option value="ai_hard">🔥 Сильный ИИ</option>
+        </select>
+        <select id="themeSelect" title="Тема">
+          <option value="default">🎨 Default</option>
+          <option value="neon">⚡ Neon</option>
+          <option value="ocean">🌊 Ocean</option>
+          <option value="sunset">🌇 Sunset</option>
+          <option value="matrix">🟩 Matrix</option>
+        </select>
+        <button id="reset" class="btn">↺ Сброс</button>
+      </div>
+    </header>
+
+    <main class="board-wrap">
+      <div id="status" class="status">Ход: <b>X</b></div>
+      <div id="board" class="board" role="grid" aria-label="Игровое поле 3 на 3"></div>
+      <section class="score">
+        <div class="card">
+          <div class="card-title">Статистика</div>
+          <div class="score-row"><span>X побед</span><b id="xWins">0</b></div>
+          <div class="score-row"><span>O побед</span><b id="oWins">0</b></div>
+          <div class="score-row"><span>Ничьи</span><b id="draws">0</b></div>
+        </div>
+        <div class="card tips">
+          <div class="card-title">Подсказки</div>
+          <ul>
+            <li>Выбирай тему «Тема» — сохраняется в памяти браузера.</li>
+            <li>Сброс очищает поле, статистика сохраняется.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer"><span>Made with ❤️ for Telegram Web Apps</span></footer>
+  </div>
+
+  <script src="./app.js"></script>
+  <script data-base="./">
+
+    const THEME_KEY = 'ttt_theme_v1';
+    function applyTheme(name, basePath){
+      const link = document.getElementById('themeLink');
+      const path = name === 'default' ? basePath + 'theme-default.css' : basePath + 'theme-' + name + '.css';
+      link.setAttribute('href', path);
+      try { localStorage.setItem(THEME_KEY, name); } catch(e){}
+    }
+    (function(){
+      const scriptTag = document.currentScript;
+      const basePath = (scriptTag && scriptTag.getAttribute('data-base')) || './';
+      const saved = (localStorage.getItem('ttt_theme_v1') || 'default');
+      applyTheme(saved, basePath);
+      const sel = document.getElementById('themeSelect');
+      if(sel){
+        sel.value = saved;
+        sel.addEventListener('change', (e)=> applyTheme(e.target.value, basePath));
+      }
+    })();
+
+  </script>
+</body>
+</html>

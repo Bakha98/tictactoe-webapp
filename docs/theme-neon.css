@@ -1,0 +1,7 @@
+:root{
+  --bg: radial-gradient(1200px 800px at 10% -10%, #121f3d 0%, transparent 60%),
+        radial-gradient(1000px 700px at 110% 10%, #00e5ff 0%, transparent 60%),
+        radial-gradient(1200px 800px at 50% 120%, #0c0f1c 0%, #05060c 60%);
+  --accent:#00e5ff; --accent-2:#00ffa3; --glow: 0 10px 34px rgba(0,229,255,.35);
+  --text:#eaffff;
+}
